@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: black;
+    font-family: "Fredoka", Arial;
+    font-size: 1.5rem;
+    color: white;
+}
+
+#points {
+    position: absolute;
+    text-shadow: 0 0 1rem white;
+}
+
+#menu {
+    position: fixed;
+    width: 90vw;
+    top: 20%;
+    transition: .3s;
+}
+
+#gameOver {
+    display: none;
+    position: fixed;
+    top: 40%;
+    text-shadow: 0 0 1.5rem white;
+    animation: fade 1s forwards;
+}
+
+#restart, #play {
+    transition: .3s;
+}
+#restart:hover, #play:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 .5rem white);
+}
+
+.green, .red {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.green {
+    background-color: lime;
+    color: lime;
+}
+
+.red {
+    background-color: crimson;
+    color: crimson;
+}
+
+.green:hover, .red:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 0 1rem currentColor;
+}
+
+.spawn {
+    animation: spawn .3s forwards;
+}
+.implode {
+    animation: implode .3s forwards;
+}
+.pop {
+    animation: pop .3s forwards;
+}
+
+@keyframes spawn {
+    0% { scale: 0; }
+    90% { scale: 1.05; }
+    100% { scale: 1; }
+}
+@keyframes implode {
+    0% { scale: 1; }
+    10% { scale: 1.1; }
+    100% { scale: 0; }
+}
+@keyframes pop {
+    0% { scale: 1; opacity: 1;}
+    10% { scale: 0.9; opacity: 1;}
+    100% { scale: 1.5; opacity: 0;}
+}
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
