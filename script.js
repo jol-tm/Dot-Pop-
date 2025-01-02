@@ -1,3 +1,11 @@
+let spawnInterval;
+let removeInterval;
+let spawner;
+let greenRemover;
+let x = Math.random();
+let diff;
+let points = 0;
+
 document.addEventListener("DOMContentLoaded", () => {
     managePoints();
 
@@ -8,23 +16,33 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#play").addEventListener("click", () => {
         const menu = document.querySelector("#menu");
 
+        [...document.querySelectorAll(".diffOption")].some(element => {
+            if (element.checked) {
+                diff = element.value;
+                console.log(diff);
+                return true;
+            }
+        });
+
         menu.style.opacity = 0;
         setTimeout(() => {
             menu.style.display = "none";
         }, 300);
 
+        if (diff == "easy") {
+            spawnInterval = 1000;
+            removeInterval = 2000;
+        } else if (diff == "medium") {
+            spawnInterval = 1000;
+            removeInterval = 1000;
+        } else if (diff == "hard") {
+            spawnInterval = 500;
+            removeInterval = 1000;
+        }
+
         spawn();
     })
 });
-
-const spawnInterval = 1000;
-const removeInterval = 3000;
-const popSfx = new Audio("sfx/pop.mp3");
-const fartSfx = new Audio("sfx/fart.mp3");
-let spawner;
-let greenRemover;
-let x = Math.random();
-let points = 0;
 
 function spawn() {
     spawner = setInterval(() => {
@@ -69,7 +87,11 @@ function spawnRed() {
 }
 
 function pop() {
+    const popSfx = new Audio("sfx/pop.mp3");
+    const fartSfx = new Audio("sfx/fart.mp3");
+
     this.classList.add("pop");
+    this.removeEventListener("click", pop);
     
     if (this.className.includes("green")) {
         clearTimeout(greenRemover);
@@ -87,6 +109,9 @@ function pop() {
 }
 
 function removeDot(dot) {
+    const fartSfx = new Audio("sfx/fart.mp3");
+
+    dot.removeEventListener("click", pop);
     dot.classList.add("implode");
 
     if (dot.className.includes("green")) {
@@ -117,7 +142,6 @@ function managePoints(action) {
 function verifyGameOver() {
     if (points <= 0) {
         clearInterval(spawner);
-        clearTimeout(greenRemover);
         managePoints("reset");
         document.querySelector("#gameOver").style.display = "block";
     }

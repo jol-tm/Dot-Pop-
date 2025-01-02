@@ -22,6 +22,20 @@ body {
     transition: .3s;
 }
 
+#difficulty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #options {
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        width: 15rem;
+        margin-left: 8rem;
+    }
+}
+
+
 #gameOver {
     display: none;
     position: fixed;
